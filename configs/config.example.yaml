@@ -1,0 +1,29 @@
+# Network Blocker Configuration
+# Copy this file to config.yaml and customize your blacklist
+
+proxy:
+  # Port to listen on
+  port: 8888
+  # Bind address (127.0.0.1 for local only, 0.0.0.0 for all interfaces)
+  bind: 127.0.0.1
+
+# Domains to block
+# Supported patterns:
+#   - facebook.com      → blocks facebook.com and all subdomains (www.facebook.com, m.facebook.com)
+#   - *.example.com     → blocks subdomains only (www.example.com, but NOT example.com)
+#   - google.*          → blocks all TLDs (google.com, google.de, google.es, www.google.com)
+#   - *.google.*        → blocks subdomains with any TLD (www.google.de, mail.google.es)
+blacklist:
+  - facebook.com
+  - twitter.com
+  - instagram.com
+  - tiktok.com
+  - reddit.com
+
+logging:
+  # Log level: debug, info, warn, error
+  level: info
+  # Log blocked requests
+  log_blocked: true
+  # Log allowed requests (can be verbose)
+  log_allowed: false

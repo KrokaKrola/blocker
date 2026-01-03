@@ -1,0 +1,26 @@
+# Binary
+blocker
+blocker.exe
+
+# Config (contains personal blacklist)
+configs/config.yaml
+
+# Logs
+*.log
+.blocker/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Test binaries
+*.test
+
+# Go build cache
+.cache/
