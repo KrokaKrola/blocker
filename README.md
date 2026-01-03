@@ -28,30 +28,30 @@ cd blocker
 cp configs/config.example.yaml configs/config.yaml
 
 # Build
-go build -o blocker ./cmd/blocker
+go build -o netblocker ./cmd/blocker
 ```
 
 ### Cross-compile
 
 ```bash
 # For macOS (Intel)
-GOOS=darwin GOARCH=amd64 go build -o blocker-darwin ./cmd/blocker
+GOOS=darwin GOARCH=amd64 go build -o netblocker-darwin ./cmd/blocker
 
 # For macOS (Apple Silicon)
-GOOS=darwin GOARCH=arm64 go build -o blocker-darwin-arm64 ./cmd/blocker
+GOOS=darwin GOARCH=arm64 go build -o netblocker-darwin-arm64 ./cmd/blocker
 
 # For Windows
-GOOS=windows GOARCH=amd64 go build -o blocker.exe ./cmd/blocker
+GOOS=windows GOARCH=amd64 go build -o netblocker.exe ./cmd/blocker
 ```
 
 ## Quick Start
 
 ```bash
 # 1. Install as service and enable system proxy
-./blocker install --proxy
+./netblocker install --proxy
 
 # 2. Check status
-./blocker status
+./netblocker status
 
 # That's it! Blocked sites will now show connection errors.
 ```
@@ -62,51 +62,51 @@ GOOS=windows GOARCH=amd64 go build -o blocker.exe ./cmd/blocker
 
 ```bash
 # Install service + configure system proxy
-./blocker install --proxy
+./netblocker install --proxy
 
 # Check status
-./blocker status
+./netblocker status
 
 # Restart service (apply config changes)
-./blocker restart
+./netblocker restart
 
 # Uninstall service + disable proxy
-./blocker uninstall
+./netblocker uninstall
 
 # Run in foreground (for testing/debugging)
-./blocker run
+./netblocker run
 ```
 
 ### Blacklist Management
 
 ```bash
 # List blocked domains
-./blocker list
+./netblocker list
 
 # Add a domain
-./blocker add youtube.com
+./netblocker add youtube.com
 
 # Add with wildcard (block all TLDs)
-./blocker add "google.*"
+./netblocker add "google.*"
 
 # Remove a domain
-./blocker remove youtube.com
+./netblocker remove youtube.com
 
 # Apply changes
-./blocker restart
+./netblocker restart
 ```
 
 ### Viewing Logs
 
 ```bash
 # View last 50 log lines
-./blocker logs
+./netblocker logs
 
 # View last 100 lines
-./blocker logs -n 100
+./netblocker logs -n 100
 
 # Follow logs in real-time
-./blocker logs -f
+./netblocker logs -f
 ```
 
 ## Configuration
@@ -174,11 +174,11 @@ logging:
 ## CLI Reference
 
 ```
-blocker - Network Blocker CLI
+netblocker - Network Blocker CLI
 
 Commands:
   run         Run the proxy server in foreground
-  install     Install blocker as a system service
+  install     Install as a system service
               Flags: -p, --proxy  Also configure system proxy
   uninstall   Uninstall service and disable proxy
   restart     Restart service to apply config changes
@@ -186,7 +186,7 @@ Commands:
   add         Add a domain to the blacklist
   remove      Remove a domain from the blacklist
   list        List all blacklisted domains
-  logs        View blocker logs
+  logs        View logs
               Flags: -f, --follow  Follow in real-time
                      -n, --lines   Number of lines (default: 50)
 
@@ -199,17 +199,17 @@ Global Flags:
 
 ### Proxy not working
 
-1. Check if the service is running: `./blocker status`
+1. Check if the service is running: `./netblocker status`
 2. Check system proxy: System Preferences → Network → Proxies (macOS)
-3. Try running in foreground: `./blocker run`
-4. Check logs: `./blocker logs`
+3. Try running in foreground: `./netblocker run`
+4. Check logs: `./netblocker logs`
 
 ### Can't access any websites
 
 The proxy is enabled but the blocker isn't running. Fix with:
 
 ```bash
-./blocker uninstall   # Disables proxy and removes service
+./netblocker uninstall   # Disables proxy and removes service
 ```
 
 Or manually disable proxy in System Preferences → Network → Proxies.
@@ -217,7 +217,7 @@ Or manually disable proxy in System Preferences → Network → Proxies.
 ### Changes to blacklist not taking effect
 
 ```bash
-./blocker restart
+./netblocker restart
 ```
 
 ### Port already in use
@@ -225,7 +225,7 @@ Or manually disable proxy in System Preferences → Network → Proxies.
 Edit `configs/config.yaml` and change the port, then restart:
 
 ```bash
-./blocker restart
+./netblocker restart
 ```
 
 ## License

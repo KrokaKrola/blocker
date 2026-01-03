@@ -1,6 +1,6 @@
-# Binary (only in root directory)
-/blocker
-/blocker.exe
+# Binary
+netblocker
+netblocker.exe
 
 # Config (contains personal blacklist)
 configs/config.yaml
