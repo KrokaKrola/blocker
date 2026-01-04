@@ -96,14 +96,14 @@ func (s *Service) uninstallWindows() error {
 	}
 	defer m.Disconnect()
 
-	svc, err := m.OpenService(serviceName)
+	winSvc, err := m.OpenService(serviceName)
 	if err != nil {
 		return nil // Service doesn't exist, already uninstalled
 	}
-	defer svc.Close()
+	defer winSvc.Close()
 
 	// Stop the service first
-	_, err = svc.Control(svc.Stop)
+	_, err = winSvc.Control(svc.Stop)
 	if err != nil {
 		// Ignore stop errors, service might not be running
 	}
@@ -112,7 +112,7 @@ func (s *Service) uninstallWindows() error {
 	time.Sleep(2 * time.Second)
 
 	// Delete the service
-	err = svc.Delete()
+	err = winSvc.Delete()
 	if err != nil {
 		return fmt.Errorf("failed to delete service: %w", err)
 	}
@@ -128,13 +128,13 @@ func (s *Service) startWindows() error {
 	}
 	defer m.Disconnect()
 
-	svc, err := m.OpenService(serviceName)
+	winSvc, err := m.OpenService(serviceName)
 	if err != nil {
 		return fmt.Errorf("failed to open service: %w", err)
 	}
-	defer svc.Close()
+	defer winSvc.Close()
 
-	err = svc.Start()
+	err = winSvc.Start()
 	if err != nil {
 		return fmt.Errorf("failed to start service: %w", err)
 	}
@@ -150,13 +150,13 @@ func (s *Service) stopWindows() error {
 	}
 	defer m.Disconnect()
 
-	svc, err := m.OpenService(serviceName)
+	winSvc, err := m.OpenService(serviceName)
 	if err != nil {
 		return fmt.Errorf("failed to open service: %w", err)
 	}
-	defer svc.Close()
+	defer winSvc.Close()
 
-	_, err = svc.Control(svc.Stop)
+	_, err = winSvc.Control(svc.Stop)
 	if err != nil {
 		return fmt.Errorf("failed to stop service: %w", err)
 	}
@@ -172,13 +172,13 @@ func (s *Service) statusWindows() (string, error) {
 	}
 	defer m.Disconnect()
 
-	svc, err := m.OpenService(serviceName)
+	winSvc, err := m.OpenService(serviceName)
 	if err != nil {
 		return "not installed", nil
 	}
-	defer svc.Close()
+	defer winSvc.Close()
 
-	status, err := svc.Query()
+	status, err := winSvc.Query()
 	if err != nil {
 		return "unknown", fmt.Errorf("failed to query service: %w", err)
 	}
@@ -207,11 +207,11 @@ func (s *Service) isInstalledWindows() bool {
 	}
 	defer m.Disconnect()
 
-	svc, err := m.OpenService(serviceName)
+	winSvc, err := m.OpenService(serviceName)
 	if err != nil {
 		return false
 	}
-	svc.Close()
+	winSvc.Close()
 	return true
 }
 
